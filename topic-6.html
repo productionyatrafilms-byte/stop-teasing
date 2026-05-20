@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-lang-key="title-6"></title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <!-- Separate Swiper Custom CSS -->
+    <link rel="stylesheet" href="./assets/css/swiper-style.css" />
+  </head>
+
+  <style>
+    body[data-lang="hi"] .title span {
+      font-size: 2vw !important;
+      font-weight: bolder !important;
+    }
+
+    body[data-lang="gu"] .title span {
+      font-size: 2vw !important;
+      font-weight: bolder !important;
+    }
+
+    .title {
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 10000;
+      padding: 0.2vw 1vw;
+      border-radius: 1vw;
+      border: 0.3vw solid #966dff;
+      background-color: white;
+    }
+
+    .title span {
+      color: #ffffff;
+      font-family: "MochiyPopOneRegular";
+      display: flex;
+      align-items: center;
+      font-size: 2vw !important;
+      justify-content: center;
+      color: #966dff !important;
+      text-shadow: 0vw 0.2vw 0.1vw rgba(0, 0, 0, 0.453) !important;
+      line-height: 1.2;
+    }
+
+    /* IMPORTANT UPDATE */
+    /* This keeps the full box fixed */
+    .swiper-image-box {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Only this inner swiper will move */
+    .video-swiper {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .video-swiper .swiper-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-swiper .swiper-slide {
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-swiper .swiper-slide video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+
+  <body>
+    <a class="home-button home-btn" href="index.html">
+      <img src="./assets/images/home-btn.png" alt="" />
+    </a>
+
+    <div class="title">
+      <span data-lang-key="title-6"></span>
+    </div>
+
+    <div class="language-container">
+      <div class="english active">E</div>
+      <div class="hindi">H</div>
+      <div class="gujrati">G</div>
+    </div>
+
+    <div class="main">
+      <div class="pages">
+        <div class="page page-1">
+          <a href="topic-1.html" data-lang-key="num-1"></a>
+          <div data-lang-key="title-1"></div>
+        </div>
+
+        <div class="page page-2">
+          <a href="topic-2.html" data-lang-key="num-2"></a>
+          <div data-lang-key="title-2"></div>
+        </div>
+
+        <div class="page page-3">
+          <a href="topic-3.html" data-lang-key="num-3"></a>
+          <div data-lang-key="title-3"></div>
+        </div>
+
+        <div class="page page-4">
+          <a href="topic-4.html" data-lang-key="num-4"></a>
+          <div data-lang-key="title-4"></div>
+        </div>
+
+        <div class="page page-5">
+          <a href="topic-5.html" data-lang-key="num-5"></a>
+          <div data-lang-key="title-5"></div>
+        </div>
+
+        <div class="page page-6">
+          <a href="topic-6.html" data-lang-key="num-6"></a>
+          <div data-lang-key="title-6"></div>
+        </div>
+      </div>
+
+      <img class="ring" src="./assets/images/ring-2.png" alt="" />
+    </div>
+
+    <!-- Swiper Section -->
+    <div class="swiper-section">
+      <div class="topic-swiper">
+        <div class="swiper-slide">
+          <!-- Fixed Image Box -->
+          <div class="swiper-image-box">
+            <!-- Only Video Swiper -->
+            <div class="video-swiper swiper">
+              <div class="swiper-wrapper">
+                <!-- Video Slide 1 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/6-1.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 2 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/6-2.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 3 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/6-3.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 4 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/6-4.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 5 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/6-5.mp4" type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fixed Content Container -->
+          <div class="content-container">
+            <span data-lang-key="slide-6.1"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Navigation Buttons -->
+      <button
+        class="swiper-custom-btn swiper-prev-btn"
+        aria-label="Previous slide"
+      >
+        <img src="./assets/images/prev-btn.png" alt="" />
+      </button>
+
+      <button class="swiper-custom-btn swiper-next-btn" aria-label="Next slide">
+        <img src="./assets/images/next-btn.png" alt="" />
+      </button>
+    </div>
+
+    <script src="./assets/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      const slideTextKeys = [
+        "slide-6.1",
+        "slide-6.2",
+        "slide-6.3",
+        "slide-6.4",
+        "slide-6.5",
+      ];
+
+      const finalPageUrl = "./pranam.html";
+
+      const prevBtn = document.querySelector(".swiper-prev-btn");
+      const nextBtn = document.querySelector(".swiper-next-btn");
+      const prevBtnImg = document.querySelector(".swiper-prev-btn img");
+      const nextBtnImg = document.querySelector(".swiper-next-btn img");
+      const textSpan = document.querySelector(".content-container span");
+
+      // NO navigation linked to Swiper — we control it fully manually
+      const videoSwiper = new Swiper(".video-swiper", {
+        slidesPerView: 1,
+        speed: 700,
+        effect: "slide",
+        allowTouchMove: true,
+
+        on: {
+          init: function () {
+            updateSwiperButtons(this);
+            updateContentKey(this.activeIndex);
+            updateContentContainerWidth();
+            playCurrentVideo(this);
+          },
+
+          slideChange: function () {
+            updateSwiperButtons(this);
+            updateContentKey(this.activeIndex);
+            updateContentContainerWidth();
+            playCurrentVideo(this);
+          },
+
+          resize: function () {
+            updateContentContainerWidth();
+          },
+        },
+      });
+
+      function updateSwiperButtons(swiper) {
+        if (!prevBtn || !nextBtn) return;
+
+        if (swiper.isBeginning) {
+          prevBtn.style.opacity = "0";
+          prevBtn.style.pointerEvents = "none";
+        } else {
+          prevBtn.style.opacity = "1";
+          prevBtn.style.pointerEvents = "auto";
+        }
+
+        nextBtn.style.opacity = "1";
+        nextBtn.style.pointerEvents = "auto";
+      }
+
+      function updateContentKey(index) {
+        if (!textSpan) return;
+
+        const key = slideTextKeys[index];
+        if (!key) return;
+
+        textSpan.classList.add("text-fade-out");
+        textSpan.classList.remove("text-fade-in");
+
+        setTimeout(() => {
+          textSpan.setAttribute("data-lang-key", key);
+
+          if (typeof applyLanguage === "function") {
+            const savedLang =
+              localStorage.getItem("selectedLanguage") ||
+              localStorage.getItem("preferredLanguage") ||
+              "en";
+            applyLanguage(savedLang);
+          }
+
+          updateContentContainerWidth();
+
+          textSpan.classList.remove("text-fade-out");
+          textSpan.classList.add("text-fade-in");
+        }, 250);
+      }
+
+      function updateContentContainerWidth() {
+        const contentContainers =
+          document.querySelectorAll(".content-container");
+
+        contentContainers.forEach((container) => {
+          const text = container.querySelector("span");
+          if (!text) return;
+
+          container.style.width = "auto";
+
+          const textWidth = text.scrollWidth;
+          const minWidth = window.innerWidth * 0.28;
+          const maxWidth = window.innerWidth * 0.78;
+          const extraPadding = window.innerWidth * 0.06;
+
+          let finalWidth = textWidth + extraPadding;
+          if (finalWidth < minWidth) finalWidth = minWidth;
+          if (finalWidth > maxWidth) finalWidth = maxWidth;
+
+          container.style.width = `${finalWidth}px`;
+        });
+      }
+
+      function playCurrentVideo(swiper) {
+        const videos = document.querySelectorAll(".swiper-video");
+
+        videos.forEach((video) => {
+          video.pause();
+          video.currentTime = 0;
+        });
+
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const activeVideo = activeSlide.querySelector(".swiper-video");
+
+        if (activeVideo) {
+          activeVideo.play().catch(() => {});
+        }
+      }
+
+      /* Prev button — hover + click */
+      if (prevBtn && prevBtnImg) {
+        prevBtn.addEventListener("mouseenter", () => {
+          prevBtnImg.src = "./assets/images/prev-btn-hov.png";
+        });
+        prevBtn.addEventListener("mouseleave", () => {
+          prevBtnImg.src = "./assets/images/prev-btn.png";
+        });
+        prevBtn.addEventListener("click", () => {
+          videoSwiper.slidePrev();
+        });
+      }
+
+      /* Next button — hover + click — fully manual */
+      if (nextBtn && nextBtnImg) {
+        nextBtn.addEventListener("mouseenter", () => {
+          nextBtnImg.src = "./assets/images/next-btn-hov.png";
+        });
+        nextBtn.addEventListener("mouseleave", () => {
+          nextBtnImg.src = "./assets/images/next-btn.png";
+        });
+
+        nextBtn.addEventListener("click", () => {
+          const lastIndex = slideTextKeys.length - 1;
+
+          if (videoSwiper.activeIndex === lastIndex) {
+            // Already on slide 5 — go to pranam
+            window.location.href = finalPageUrl;
+          } else {
+            // Move to next slide
+            videoSwiper.slideNext();
+          }
+        });
+      }
+
+      window.addEventListener("load", () => {
+        updateContentContainerWidth();
+      });
+
+      const contentObserver = new MutationObserver(() => {
+        updateContentContainerWidth();
+      });
+
+      document.querySelectorAll(".content-container span").forEach((span) => {
+        contentObserver.observe(span, {
+          childList: true,
+          characterData: true,
+          subtree: true,
+        });
+      });
+    </script>
+  </body>
+</html>

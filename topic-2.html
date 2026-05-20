@@ -1,0 +1,1253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-lang-key="title-2"></title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <!-- Separate Swiper Custom CSS -->
+    <link rel="stylesheet" href="./assets/css/swiper-style.css" />
+
+    <!-- Font Awesome For Video Popup Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <style>
+    body[data-lang="hi"] .title span {
+      font-size: 2vw !important;
+      font-weight: bolder !important;
+    }
+
+    body[data-lang="gu"] .title span {
+      font-size: 2vw !important;
+      font-weight: bolder !important;
+    }
+    .title {
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 10000;
+      padding: 0.2vw 1vw;
+      border-radius: 1vw;
+      border: 0.3vw solid #966dff;
+      background-color: white;
+    }
+
+    .title span {
+      color: #ffffff;
+      font-family: "MochiyPopOneRegular";
+      display: flex;
+      align-items: center;
+      font-size: 2vw !important;
+      justify-content: center;
+      color: #966dff !important;
+      text-shadow: 0vw 0.2vw 0.1vw rgba(0, 0, 0, 0.453) !important;
+      line-height: 1.2;
+    }
+
+    /* IMPORTANT UPDATE */
+    /* This keeps the full box fixed */
+    .swiper-image-box {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Only this inner swiper will move */
+    .video-swiper {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .video-swiper .swiper-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-swiper .swiper-slide {
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-swiper .swiper-slide video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Video Button + Popup CSS */
+    body.video-open .main,
+    body.video-open .swiper-section,
+    body.video-open .title {
+      filter: blur(0.45vw);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .home-btn,
+    .video-btn,
+    .language-container {
+      transform: none !important;
+    }
+
+    .video-btn {
+      position: fixed;
+      top: 47%;
+      transform: translateY(-50%);
+      left: 5%;
+      z-index: 1000;
+    }
+
+    .start-video-btn {
+      width: 9vw;
+      height: 3.4vw;
+      border-radius: 50vw;
+      background: rgba(150, 109, 255, 0.34);
+      border: 0.2vw solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 0 0.6vw;
+      box-shadow: 0.25vw 0.35vw 0.7vw rgba(0, 0, 0, 0.32);
+      backdrop-filter: blur(0.25vw);
+      -webkit-backdrop-filter: blur(0.25vw);
+      transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .start-video-btn:hover {
+      transform: scale(1.05);
+      background: #966dff;
+      box-shadow: 0.3vw 0.45vw 0.9vw rgba(0, 0, 0, 0.38);
+    }
+
+    .start-video-btn:active {
+      transform: scale(0.98);
+    }
+
+    .play-icon {
+      width: 2vw;
+      height: 2vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 1.45vw;
+    }
+
+    .play-icon i,
+    .close-video-btn i,
+    .video-center-play i,
+    .control-btn i {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex: 0 0 auto;
+    }
+
+    .play-icon i {
+      width: 1.5vw;
+      min-width: 1.5vw;
+      max-width: 1.5vw;
+    }
+
+    .close-video-btn i {
+      width: 1.8vw;
+      min-width: 1.8vw;
+      max-width: 1.8vw;
+    }
+
+    .video-center-play i {
+      width: 2.2vw;
+      min-width: 2.2vw;
+      max-width: 2.2vw;
+    }
+
+    .control-btn i {
+      width: 1.4vw;
+      min-width: 1.4vw;
+      max-width: 1.4vw;
+    }
+
+    .start-text {
+      font-size: 1.8vw;
+      font-weight: 900;
+      letter-spacing: 0.08vw;
+      color: #ffffff;
+      line-height: 1;
+      font-family: "BalooRegular", sans-serif;
+    }
+
+    .video-popup {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.42);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+    }
+
+    .video-popup.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .video-box {
+      position: relative;
+      width: 68vw;
+      aspect-ratio: 16 / 9;
+      border-radius: 2vw;
+      background: rgba(150, 109, 255, 0.28);
+      padding: 0.75vw;
+      border: 0.25vw solid #ffffff;
+      box-shadow: 0 1vw 3vw rgba(0, 0, 0, 0.45);
+      transform: scale(0.82);
+      opacity: 0;
+      backdrop-filter: blur(0.25vw);
+      -webkit-backdrop-filter: blur(0.25vw);
+      transition:
+        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.35s ease;
+    }
+
+    .video-popup.active .video-box {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .popup-video-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 1.4vw;
+      overflow: hidden;
+      background: #000000;
+      border: 0.18vw solid rgba(255, 255, 255, 0.78);
+    }
+
+    .popup-video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      background: #000000;
+    }
+
+    .close-video-btn {
+      position: absolute;
+      top: -1.35vw;
+      right: -1.35vw;
+      width: 3.4vw;
+      height: 3.4vw;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      color: #966dff;
+      font-size: 1.8vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 0.35vw 1vw rgba(0, 0, 0, 0.35);
+      transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+    }
+
+    .close-video-btn:hover {
+      transform: rotate(90deg) scale(1.08);
+      background: #966dff;
+      color: #ffffff;
+    }
+
+    .custom-controls {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 5;
+      padding: 1vw;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75vw;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.84),
+        rgba(150, 109, 255, 0.54),
+        rgba(255, 184, 68, 0)
+      );
+      opacity: 1;
+      transition: opacity 0.25s ease;
+    }
+
+    .popup-video-frame.controls-hidden .custom-controls {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .progress-wrap {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .video-progress {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      height: 0.45vw;
+      border-radius: 5vw;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      overflow: hidden;
+      pointer-events: auto;
+    }
+
+    .video-progress::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 1vw;
+      height: 1vw;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: -70vw 0 0 69.6vw #ffffff;
+      cursor: pointer;
+    }
+
+    .video-progress::-moz-range-thumb {
+      width: 1vw;
+      height: 1vw;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    .video-progress::-moz-range-progress {
+      height: 0.45vw;
+      border-radius: 5vw;
+      background: #ffffff;
+    }
+
+    .control-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1vw;
+    }
+
+    .control-left,
+    .control-right {
+      display: flex;
+      align-items: center;
+      gap: 0.8vw;
+    }
+
+    .control-btn {
+      width: 2.8vw;
+      min-width: 2.8vw;
+      max-width: 2.8vw;
+      height: 2.8vw;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.24);
+      color: #ffffff;
+      font-size: 1.2vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .control-btn:hover {
+      background: #ffffff;
+      color: #966dff;
+      transform: scale(1.08);
+    }
+
+    .time-text {
+      color: #ffffff;
+      font-size: 1.05vw;
+      font-weight: 700;
+      font-family: Arial, sans-serif;
+      letter-spacing: 0.05vw;
+      min-width: 8vw;
+    }
+
+    .volume-range {
+      width: 7vw;
+      appearance: none;
+      -webkit-appearance: none;
+      height: 0.4vw;
+      border-radius: 5vw;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+    }
+
+    .volume-range::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 0.9vw;
+      height: 0.9vw;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    .volume-range::-moz-range-thumb {
+      width: 0.9vw;
+      height: 0.9vw;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    .video-center-play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6vw;
+      min-width: 6vw;
+      max-width: 6vw;
+      height: 6vw;
+      border: 0.22vw solid rgba(255, 255, 255, 0.85);
+      border-radius: 50%;
+      background: rgba(150, 109, 255, 0.46);
+      color: #ffffff;
+      font-size: 2.2vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 4;
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .video-center-play.hide {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    .video-center-play:hover {
+      background: rgba(150, 109, 255, 0.86);
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    .video-box:fullscreen {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      padding: 0;
+      background: #000000;
+    }
+
+    .video-box:fullscreen .popup-video-frame {
+      border-radius: 0;
+      border: none;
+    }
+
+    .video-box:fullscreen .close-video-btn {
+      top: 1.5vw;
+      right: 1.5vw;
+    }
+  </style>
+
+  <body>
+    <a class="home-button home-btn" href="index.html">
+      <img src="./assets/images/home-btn.png" alt="" />
+    </a>
+
+    <div class="video-btn">
+      <button class="start-video-btn" type="button">
+        <span class="play-icon">
+          <i class="fa-solid fa-play"></i>
+        </span>
+        <span class="start-text">START</span>
+      </button>
+    </div>
+
+    <div class="title">
+      <span data-lang-key="title-2"></span>
+    </div>
+
+    <div class="language-container">
+      <div class="english active">E</div>
+      <div class="hindi">H</div>
+      <div class="gujrati">G</div>
+    </div>
+
+    <div class="main">
+      <div class="pages">
+        <div class="page page-1">
+          <a href="topic-1.html" data-lang-key="num-1"></a>
+          <div data-lang-key="title-1"></div>
+        </div>
+
+        <div class="page page-2">
+          <a href="topic-2.html" data-lang-key="num-2"></a>
+          <div data-lang-key="title-2"></div>
+        </div>
+
+        <div class="page page-3">
+          <a href="topic-3.html" data-lang-key="num-3"></a>
+          <div data-lang-key="title-3"></div>
+        </div>
+
+        <div class="page page-4">
+          <a href="topic-4.html" data-lang-key="num-4"></a>
+          <div data-lang-key="title-4"></div>
+        </div>
+
+        <div class="page page-5">
+          <a href="topic-5.html" data-lang-key="num-5"></a>
+          <div data-lang-key="title-5"></div>
+        </div>
+
+        <div class="page page-6">
+          <a href="topic-6.html" data-lang-key="num-6"></a>
+          <div data-lang-key="title-6"></div>
+        </div>
+      </div>
+
+      <img class="ring" src="./assets/images/ring-2.png" alt="" />
+    </div>
+
+    <!-- Swiper Section -->
+    <div class="swiper-section">
+      <div class="topic-swiper">
+        <div class="swiper-slide">
+          <!-- Fixed Image Box -->
+          <div class="swiper-image-box">
+            <!-- Only Video Swiper -->
+            <div class="video-swiper swiper">
+              <div class="swiper-wrapper">
+                <!-- Video Slide 1 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/2-1.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 2 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/2-2.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 3 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/2-3.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 4 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/2-4.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 5 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/2-5.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 6 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/2-6.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 7 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/2-7.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 8 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/2-8.mp4" type="video/mp4" />
+                  </video>
+                </div>
+
+                <!-- Video Slide 9 -->
+                <div class="swiper-slide">
+                  <video class="swiper-video" autoplay muted loop playsinline>
+                    <source src="./assets/videos/2-9.mp4" type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fixed Content Container -->
+          <div class="content-container">
+            <span data-lang-key="slide-2.1"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Navigation Buttons -->
+      <button
+        class="swiper-custom-btn swiper-prev-btn"
+        aria-label="Previous slide"
+      >
+        <img src="./assets/images/prev-btn.png" alt="" />
+      </button>
+
+      <button class="swiper-custom-btn swiper-next-btn" aria-label="Next slide">
+        <img src="./assets/images/next-btn.png" alt="" />
+      </button>
+    </div>
+
+    <div class="video-popup">
+      <div class="video-box">
+        <button class="close-video-btn" type="button">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="popup-video-frame">
+          <video
+            class="popup-video"
+            src="./assets/videos/topic-2.webm"
+            preload="metadata"
+            controlsList="nodownload noplaybackrate"
+            disablePictureInPicture
+          ></video>
+
+          <button class="video-center-play" type="button">
+            <i class="fa-solid fa-play"></i>
+          </button>
+
+          <div class="custom-controls">
+            <div class="progress-wrap">
+              <input
+                class="video-progress"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                step="0.1"
+              />
+            </div>
+
+            <div class="control-row">
+              <div class="control-left">
+                <button class="control-btn play-pause-btn" type="button">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+
+                <div class="time-text">
+                  <span class="current-time">0:00</span>
+                  /
+                  <span class="total-time">0:00</span>
+                </div>
+              </div>
+
+              <div class="control-right">
+                <button class="control-btn mute-btn" type="button">
+                  <i class="fa-solid fa-volume-high"></i>
+                </button>
+
+                <input
+                  class="volume-range"
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value="1"
+                />
+
+                <button class="control-btn fullscreen-btn" type="button">
+                  <i class="fa-solid fa-expand"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./assets/js/app.js"></script>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      const slideTextKeys = [
+        "slide-2.1",
+        "slide-2.2",
+        "slide-2.3",
+        "slide-2.4",
+        "slide-2.5",
+        "slide-2.6",
+        "slide-2.7",
+        "slide-2.8",
+        "slide-2.9",
+      ];
+
+      const prevBtn = document.querySelector(".swiper-prev-btn");
+      const nextBtn = document.querySelector(".swiper-next-btn");
+      const prevBtnImg = document.querySelector(".swiper-prev-btn img");
+      const nextBtnImg = document.querySelector(".swiper-next-btn img");
+      const textSpan = document.querySelector(".content-container span");
+
+      const videoSwiper = new Swiper(".video-swiper", {
+        slidesPerView: 1,
+        speed: 700,
+        effect: "slide",
+        allowTouchMove: true,
+
+        navigation: {
+          nextEl: ".swiper-next-btn",
+          prevEl: ".swiper-prev-btn",
+        },
+
+        on: {
+          init: function () {
+            updateSwiperButtons(this);
+            updateContentKey(this.activeIndex);
+            updateContentContainerWidth();
+            playCurrentVideo(this);
+          },
+
+          slideChange: function () {
+            updateSwiperButtons(this);
+            updateContentKey(this.activeIndex);
+            updateContentContainerWidth();
+            playCurrentVideo(this);
+          },
+
+          resize: function () {
+            updateContentContainerWidth();
+          },
+        },
+      });
+
+      function updateSwiperButtons(swiper) {
+        if (!prevBtn || !nextBtn) return;
+
+        if (swiper.isBeginning) {
+          prevBtn.style.opacity = "0";
+          prevBtn.style.pointerEvents = "none";
+        } else {
+          prevBtn.style.opacity = "1";
+          prevBtn.style.pointerEvents = "auto";
+        }
+
+        if (swiper.isEnd) {
+          nextBtn.style.opacity = "0";
+          nextBtn.style.pointerEvents = "none";
+        } else {
+          nextBtn.style.opacity = "1";
+          nextBtn.style.pointerEvents = "auto";
+        }
+      }
+
+      function updateContentKey(index) {
+        if (!textSpan) return;
+
+        const key = slideTextKeys[index];
+
+        if (!key) return;
+
+        textSpan.classList.add("text-fade-out");
+        textSpan.classList.remove("text-fade-in");
+
+        setTimeout(() => {
+          textSpan.setAttribute("data-lang-key", key);
+
+          if (typeof applyLanguage === "function") {
+            const savedLang =
+              localStorage.getItem("selectedLanguage") ||
+              localStorage.getItem("preferredLanguage") ||
+              "en";
+
+            applyLanguage(savedLang);
+          }
+
+          updateContentContainerWidth();
+
+          textSpan.classList.remove("text-fade-out");
+          textSpan.classList.add("text-fade-in");
+        }, 250);
+      }
+
+      function updateContentContainerWidth() {
+        const contentContainers =
+          document.querySelectorAll(".content-container");
+
+        contentContainers.forEach((container) => {
+          const text = container.querySelector("span");
+
+          if (!text) return;
+
+          container.style.width = "auto";
+
+          const textWidth = text.scrollWidth;
+          const minWidth = window.innerWidth * 0.28;
+          const maxWidth = window.innerWidth * 0.78;
+          const extraPadding = window.innerWidth * 0.06;
+
+          let finalWidth = textWidth + extraPadding;
+
+          if (finalWidth < minWidth) {
+            finalWidth = minWidth;
+          }
+
+          if (finalWidth > maxWidth) {
+            finalWidth = maxWidth;
+          }
+
+          container.style.width = `${finalWidth}px`;
+        });
+      }
+
+      function playCurrentVideo(swiper) {
+        const videos = document.querySelectorAll(".swiper-video");
+
+        videos.forEach((video) => {
+          video.pause();
+          video.currentTime = 0;
+        });
+
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const activeVideo = activeSlide.querySelector(".swiper-video");
+
+        if (activeVideo) {
+          activeVideo.play().catch(() => {});
+        }
+      }
+
+      if (prevBtn && prevBtnImg) {
+        prevBtn.addEventListener("mouseenter", () => {
+          prevBtnImg.src = "./assets/images/prev-btn-hov.png";
+        });
+
+        prevBtn.addEventListener("mouseleave", () => {
+          prevBtnImg.src = "./assets/images/prev-btn.png";
+        });
+      }
+
+      if (nextBtn && nextBtnImg) {
+        nextBtn.addEventListener("mouseenter", () => {
+          nextBtnImg.src = "./assets/images/next-btn-hov.png";
+        });
+
+        nextBtn.addEventListener("mouseleave", () => {
+          nextBtnImg.src = "./assets/images/next-btn.png";
+        });
+      }
+
+      window.addEventListener("load", () => {
+        updateContentContainerWidth();
+      });
+
+      const contentObserver = new MutationObserver(() => {
+        updateContentContainerWidth();
+      });
+
+      document.querySelectorAll(".content-container span").forEach((span) => {
+        contentObserver.observe(span, {
+          childList: true,
+          characterData: true,
+          subtree: true,
+        });
+      });
+    </script>
+
+    <script>
+      const startVideoBtn = document.querySelector(".start-video-btn");
+      const videoPopup = document.querySelector(".video-popup");
+      const videoBox = document.querySelector(".video-box");
+      const closeVideoBtn = document.querySelector(".close-video-btn");
+      const popupVideo = document.querySelector(".popup-video");
+      const popupVideoFrame = document.querySelector(".popup-video-frame");
+
+      const centerPlayBtn = document.querySelector(".video-center-play");
+      const playPauseBtn = document.querySelector(".play-pause-btn");
+      const playPauseIcon = playPauseBtn.querySelector("i");
+      const centerPlayIcon = centerPlayBtn.querySelector("i");
+
+      const videoProgress = document.querySelector(".video-progress");
+      const currentTimeText = document.querySelector(".current-time");
+      const totalTimeText = document.querySelector(".total-time");
+
+      const muteBtn = document.querySelector(".mute-btn");
+      const muteIcon = muteBtn.querySelector("i");
+      const volumeRange = document.querySelector(".volume-range");
+
+      const fullscreenBtn = document.querySelector(".fullscreen-btn");
+      const fullscreenIcon = fullscreenBtn.querySelector("i");
+
+      let controlsTimer;
+      let lastVolume = 1;
+      let savedVideoTime = 0;
+      let maxAllowedTime = 0;
+      let isProgressDragging = false;
+
+      function formatTime(time) {
+        if (!time || isNaN(time)) return "0:00";
+
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+
+        return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+      }
+
+      function updatePlayIcons() {
+        if (popupVideo.paused) {
+          playPauseIcon.className = "fa-solid fa-play";
+          centerPlayIcon.className = "fa-solid fa-play";
+          centerPlayBtn.classList.remove("hide");
+        } else {
+          playPauseIcon.className = "fa-solid fa-pause";
+          centerPlayIcon.className = "fa-solid fa-pause";
+          centerPlayBtn.classList.add("hide");
+        }
+      }
+
+      function updateProgress() {
+        if (!popupVideo.duration) return;
+
+        if (popupVideo.currentTime > maxAllowedTime) {
+          maxAllowedTime = popupVideo.currentTime;
+        }
+
+        savedVideoTime = popupVideo.currentTime;
+
+        if (!isProgressDragging) {
+          const progressValue =
+            (popupVideo.currentTime / popupVideo.duration) * 100;
+
+          videoProgress.value = progressValue;
+        }
+
+        currentTimeText.textContent = formatTime(popupVideo.currentTime);
+        totalTimeText.textContent = formatTime(popupVideo.duration);
+      }
+
+      function handleProgressInput() {
+        if (!popupVideo.duration) return;
+
+        isProgressDragging = true;
+
+        const selectedTime =
+          (Number(videoProgress.value) / 100) * popupVideo.duration;
+
+        if (selectedTime <= maxAllowedTime) {
+          currentTimeText.textContent = formatTime(selectedTime);
+        } else {
+          const allowedProgress = (maxAllowedTime / popupVideo.duration) * 100;
+
+          videoProgress.value = allowedProgress;
+          currentTimeText.textContent = formatTime(maxAllowedTime);
+        }
+      }
+
+      function handleProgressChange() {
+        if (!popupVideo.duration) return;
+
+        const selectedTime =
+          (Number(videoProgress.value) / 100) * popupVideo.duration;
+
+        if (selectedTime <= maxAllowedTime) {
+          popupVideo.currentTime = selectedTime;
+          savedVideoTime = selectedTime;
+        } else {
+          popupVideo.currentTime = maxAllowedTime;
+
+          const allowedProgress = (maxAllowedTime / popupVideo.duration) * 100;
+
+          videoProgress.value = allowedProgress;
+          savedVideoTime = maxAllowedTime;
+        }
+
+        isProgressDragging = false;
+        updateProgress();
+      }
+
+      function updateMuteIcon() {
+        if (popupVideo.muted || popupVideo.volume === 0) {
+          muteIcon.className = "fa-solid fa-volume-xmark";
+        } else if (popupVideo.volume < 0.5) {
+          muteIcon.className = "fa-solid fa-volume-low";
+        } else {
+          muteIcon.className = "fa-solid fa-volume-high";
+        }
+      }
+
+      function togglePlay() {
+        if (!popupVideo) return;
+
+        if (popupVideo.paused) {
+          popupVideo.play().catch(function () {});
+        } else {
+          popupVideo.pause();
+        }
+      }
+
+      function pauseSwiperVideos() {
+        document.querySelectorAll(".swiper-video").forEach((video) => {
+          video.pause();
+        });
+      }
+
+      function resumeActiveSwiperVideo() {
+        if (typeof videoSwiper === "undefined") return;
+
+        const activeVideo =
+          videoSwiper.slides[videoSwiper.activeIndex]?.querySelector(
+            ".swiper-video",
+          );
+
+        if (activeVideo) {
+          activeVideo.play().catch(() => {});
+        }
+      }
+
+      function openVideoPopup() {
+        if (!videoPopup || !popupVideo) return;
+
+        pauseSwiperVideos();
+
+        document.body.classList.add("video-open");
+        videoPopup.classList.add("active");
+
+        popupVideo.volume = Number(volumeRange.value);
+        popupVideo.muted = false;
+
+        if (savedVideoTime > 0) {
+          popupVideo.currentTime = savedVideoTime;
+        }
+
+        updateMuteIcon();
+        updatePlayIcons();
+        updateProgress();
+
+        setTimeout(function () {
+          popupVideo.play().catch(function () {});
+        }, 250);
+      }
+
+      function closeVideoPopup() {
+        if (!videoPopup || !popupVideo) return;
+
+        savedVideoTime = popupVideo.currentTime;
+
+        popupVideo.pause();
+
+        videoPopup.classList.remove("active");
+        document.body.classList.remove("video-open");
+
+        if (document.fullscreenElement) {
+          document.exitFullscreen().catch(function () {});
+        }
+
+        resumeActiveSwiperVideo();
+        updatePlayIcons();
+      }
+
+      function toggleMute() {
+        if (popupVideo.muted || popupVideo.volume === 0) {
+          popupVideo.muted = false;
+          popupVideo.volume = lastVolume || 1;
+          volumeRange.value = popupVideo.volume;
+        } else {
+          lastVolume = popupVideo.volume;
+          popupVideo.muted = true;
+          volumeRange.value = 0;
+        }
+
+        updateMuteIcon();
+      }
+
+      function changeVolume() {
+        const volumeValue = Number(volumeRange.value);
+
+        popupVideo.volume = volumeValue;
+        popupVideo.muted = volumeValue === 0;
+
+        if (volumeValue > 0) {
+          lastVolume = volumeValue;
+        }
+
+        updateMuteIcon();
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          videoBox.requestFullscreen().catch(function () {});
+        } else {
+          document.exitFullscreen().catch(function () {});
+        }
+      }
+
+      function updateFullscreenIcon() {
+        if (document.fullscreenElement) {
+          fullscreenIcon.className = "fa-solid fa-compress";
+        } else {
+          fullscreenIcon.className = "fa-solid fa-expand";
+        }
+      }
+
+      function showControlsTemporarily() {
+        popupVideoFrame.classList.remove("controls-hidden");
+
+        clearTimeout(controlsTimer);
+
+        if (!popupVideo.paused) {
+          controlsTimer = setTimeout(function () {
+            popupVideoFrame.classList.add("controls-hidden");
+          }, 2200);
+        }
+      }
+
+      if (startVideoBtn) {
+        startVideoBtn.addEventListener("click", openVideoPopup);
+      }
+
+      if (closeVideoBtn) {
+        closeVideoBtn.addEventListener("click", closeVideoPopup);
+      }
+
+      if (videoPopup) {
+        videoPopup.addEventListener("click", function (e) {
+          if (e.target === videoPopup) {
+            closeVideoPopup();
+          }
+        });
+      }
+
+      if (popupVideo) {
+        popupVideo.addEventListener("click", togglePlay);
+        popupVideo.addEventListener("play", updatePlayIcons);
+        popupVideo.addEventListener("pause", updatePlayIcons);
+        popupVideo.addEventListener("timeupdate", updateProgress);
+        popupVideo.addEventListener("loadedmetadata", updateProgress);
+
+        popupVideo.addEventListener("ended", function () {
+          savedVideoTime = 0;
+          maxAllowedTime = 0;
+          videoProgress.value = 0;
+          currentTimeText.textContent = "0:00";
+          updatePlayIcons();
+        });
+
+        popupVideo.addEventListener("contextmenu", function (e) {
+          e.preventDefault();
+        });
+      }
+
+      if (videoProgress) {
+        videoProgress.addEventListener("input", handleProgressInput);
+        videoProgress.addEventListener("change", handleProgressChange);
+
+        videoProgress.addEventListener("mousedown", function () {
+          isProgressDragging = true;
+        });
+
+        videoProgress.addEventListener("mouseup", handleProgressChange);
+
+        videoProgress.addEventListener("touchstart", function () {
+          isProgressDragging = true;
+        });
+
+        videoProgress.addEventListener("touchend", handleProgressChange);
+      }
+
+      if (centerPlayBtn) {
+        centerPlayBtn.addEventListener("click", togglePlay);
+      }
+
+      if (playPauseBtn) {
+        playPauseBtn.addEventListener("click", togglePlay);
+      }
+
+      if (muteBtn) {
+        muteBtn.addEventListener("click", toggleMute);
+      }
+
+      if (volumeRange) {
+        volumeRange.addEventListener("input", changeVolume);
+      }
+
+      if (fullscreenBtn) {
+        fullscreenBtn.addEventListener("click", toggleFullscreen);
+      }
+
+      if (popupVideoFrame) {
+        popupVideoFrame.addEventListener("mousemove", showControlsTemporarily);
+        popupVideoFrame.addEventListener("click", showControlsTemporarily);
+      }
+
+      document.addEventListener("fullscreenchange", updateFullscreenIcon);
+
+      document.addEventListener("keydown", function (e) {
+        if (!videoPopup.classList.contains("active")) return;
+
+        if (e.key === "Escape") {
+          closeVideoPopup();
+        }
+
+        if (e.code === "Space") {
+          e.preventDefault();
+          togglePlay();
+        }
+
+        if (e.key.toLowerCase() === "m") {
+          toggleMute();
+        }
+
+        if (e.key.toLowerCase() === "f") {
+          toggleFullscreen();
+        }
+      });
+    </script>
+  </body>
+</html>

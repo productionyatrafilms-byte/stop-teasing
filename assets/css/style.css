@@ -1,0 +1,475 @@
+@font-face {
+  font-family: "BalooRegular";
+  src: url("../../fonts/Baloo Regular 400.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MochiyPopOneRegular";
+  src: url("../../fonts/MochiyPopOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NotoSansGujaratiBold";
+  src: url("../../fonts/NotoSansGujarati-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NotoSansGujaratiRegular";
+  src: url("../../fonts/NotoSansGujarati-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "RenchersRegular";
+  src: url("../../fonts/Ranchers-Regular.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100vw !important;
+  height: 100%;
+  background-color: #966dff;
+  overflow-x: hidden;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  padding: 1.5vw;
+}
+
+
+
+.home-btn {
+  position: fixed;
+  top: 2.5vw;
+  left: 4%;
+  width: 3.5vw;
+  z-index: 1000;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.home-btn:hover {
+  transform: scale(1.15);
+}
+
+.home-btn img {
+  width: 100%;
+  display: block;
+}
+
+
+.language-container {
+  position: fixed;
+  top: 2.5vw;
+  right: 5%;
+  display: flex;
+  width: 9vw;
+  padding: 0.2vw 0.3vw;
+  height: auto;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "BalooRegular";
+  border: 0.2vw solid #966DFF;
+  background-color: transparent;
+  border-radius: 50vw;
+  pointer-events: auto;
+  z-index: 1000;
+}
+
+.language-container div {
+  width: 2.5vw;
+  height: 2.5vw;
+  font-size: 1.6vw;
+  text-align: center;
+  border: 0.2vw solid #966DFF;
+  background: transparent !important;
+  color: #966DFF;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-family: "BalooRegular", sans-serif;
+}
+
+.language-container div:hover {
+  background-color: #966DFF !important;
+  color: #ffffff;
+}
+
+.language-container div.active {
+  background-color: #966DFF !important;
+  color: #ffffff;
+}
+
+.main  {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #ffb53e 0%, #ffb844 0%, #ffe597 100%);
+  border-radius: 3vw;
+  overflow: hidden;
+}
+
+.main .ring {
+  position: absolute;
+  width: 90%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pages {
+  position: absolute;
+  top: 50%;
+  right: -12.9vw;
+  transform: translateY(-50%);
+  width: 17vw;
+  height: 25vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 99999;
+}
+
+.pages .page {
+  position: relative;
+  text-decoration: none;
+  width: 16vw;
+  height: 3.8vw;
+  background-color: #ffffff;
+  z-index: 99999;
+  color: white;
+  border-top-left-radius: 10vw;
+  border-bottom-left-radius: 10vw;
+  display: flex;
+  align-items: center;
+  padding-left: 0.4vw;
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+.pages .page:hover {
+  transform: translateX(-1vw);
+}
+
+.pages .page.is-open,
+.pages .page.is-open:hover {
+  transform: translateX(-12vw);
+}
+
+.pages .page a {
+  display: flex;
+  width: 3vw;
+  height: 3vw;
+  border-radius: 50%;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 2vw;
+  font-family: "BalooRegular";
+  background-color: #966dff;
+  flex-shrink: 0;
+}
+
+.pages .page div {
+  width: 95%;
+  color: #424242;
+  text-align: center;
+  font-size: 1vw;
+  font-weight: bold;
+  font-family: "BalooRegular";
+  line-height: 1.1;
+}
+
+body[data-lang="hi"] .pages .page div {
+  font-size: 1.1vw !important;
+}
+
+body[data-lang="gu"] .pages .page div {
+  font-size: 0.8vw !important;
+  font-weight: bold !important;
+}
+
+.swiper-section {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.topic-swiper {
+  position: absolute;
+  width: 100%;
+  height: 78%;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  overflow: visible !important;
+  pointer-events: auto;
+}
+
+.topic-swiper .swiper-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.topic-swiper .swiper-slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.swiper-image-box {
+  width: 45vw;
+  height: auto;
+  border-radius: 2vw;
+  border: 0.4vw solid #ffffff;
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0 0.6vw 0.4vw rgba(0, 0, 0, 0.18);
+}
+
+.swiper-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Content Container */
+.content-container {
+  margin-top: 2vw;
+  height: 6.5vw;
+  min-width: 28vw !important;
+  max-width: 55vw !important;
+  padding: 0 2vw;
+  border-radius: 2.8vw;
+  border: 0.3vw solid #ffffff;
+  background: linear-gradient(180deg, #a87bff 0%, #8758f6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0.35vw 0.1vw rgba(0, 0, 0, 0.25),
+    inset 0 0.18vw 0.25vw rgba(255, 255, 255, 0.28);
+  transition: width 0.35s ease;
+  white-space: nowrap;
+}
+
+.content-container span {
+  font-family: "MochiyPopOneRegular";
+  font-size: 1.7vw;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.25;
+  white-space: wrap;
+  text-shadow: 0 0.18vw 0.15vw rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+/* Navigation Buttons */
+.swiper-custom-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5.5vw;
+  height: 5.5vw;
+  z-index: 100;
+  border: none;
+  outline: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.swiper-custom-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+.swiper-prev-btn {
+  left: 18vw;
+}
+
+.swiper-next-btn {
+  right: 18vw;
+}
+
+.swiper-custom-btn:hover {
+  transform: translateY(-50%) scale(1.08);
+}
+
+.swiper-custom-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.content-container span.text-fade-out {
+  opacity: 0;
+}
+
+.content-container span.text-fade-in {
+  opacity: 1;
+}
+
+/* Language Wise Text Adjustment */
+body[data-lang="hi"] .content-container span,
+body[data-lang="gu"] .content-container span {
+  font-size: 1.8vw;
+  line-height: 1.25;
+}
+
+body[data-lang="hi"] .content-container,
+body[data-lang="gu"] .content-container {
+  height: 6.8vw;
+}
+
+/* Hide Default Swiper Buttons */
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}
+
+.pranam-container {
+  position: absolute;
+  width: 45vw;
+  height: auto;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.pranam-container>.pranam-img {
+  position: relative;
+  width: 85%;
+  height: auto;
+  display: block;
+}
+
+.pranam-container>.pranam-img>img {
+  width: 100%;
+  display: block;
+}
+
+.pranam-img span {
+  z-index: 15;
+  position: absolute;
+  top: 17%;
+  left: 50%;
+  font-size: 3.4vw;
+  transform: translateX(-50%);
+  font-family: "BalooRegular";
+  color: #802922;
+}
+
+.pranam-container .home-btn-1 {
+  position: absolute;
+  bottom: -2%;
+  left: 50%;
+  transform: translateX(-50%) scale(1);
+  width: 15vw;
+  height: auto;
+  transition: transform 0.2s ease;
+  transform-origin: center center;
+}
+
+.pranam-container .home-btn-1:hover {
+  transform: translateX(-50%) scale(1.15);
+}
+
+.pranam-container .home-btn-1 img {
+  width: 100%;
+  display: block;
+}
+
+.home-btn-1 span {
+  z-index: 15;
+  position: absolute;
+  top: 45%;
+  left: 38%;
+  font-size: 2.5vw;
+  transform: translateY(-50%);
+  font-family: "BalooRegular";
+  color: #821b00;
+}
+
+.back-btn {
+  position: absolute;
+  left: 4%;
+  top: 4%;
+  width: 3vw;
+  height: 3vw;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+  z-index: 50;
+}
+
+.back-btn i {
+  color: #966DFF;
+  font-size: 1vw;
+  transition: font-size 0.3s ease;
+}
+
+.back-btn:hover {
+  transform: scale(1.05);
+  background-color: #966DFF;
+}
+
+.back-btn:hover i {
+  font-size: 1.2vw;
+  color: #ffffff !important;
+}

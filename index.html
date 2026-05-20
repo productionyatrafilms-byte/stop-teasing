@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+
+  <style>
+   
+    body.no-transition *,
+    body.no-transition {
+      transition: none !important;
+    }
+
+    main {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, #ffb53e 0%, #ffb844 0%, #ffe597 100%);
+      border-radius: 3vw;
+      overflow: hidden;
+    }
+
+    .home-btn {
+      opacity: 0;
+      transition: opacity 1.4s ease;
+    }
+
+    body.entered .home-btn {
+      opacity: 1;
+    }
+
+    main .ring {
+      position: absolute;
+      width: 130vw;
+      height: 130vw;
+      right: -43%;
+      top: 50%;
+      transform: translateY(-50%);
+      transition:
+        right 2.4s ease,
+        top 2.4s ease,
+        transform 2.4s ease,
+        opacity 1.4s ease;
+    }
+
+    body.entered main .ring {
+      width: 100vw;
+      height: 100vw;
+      right: 50%;
+      top: 50%;
+      transform: translate(50%, -50%);
+    }
+
+    .emoji-grp {
+      position: absolute;
+      width: 50vw;
+      height: auto;
+      top: 50%;
+      right: 3%;
+      transform: translateY(-50%);
+      opacity: 1;
+      transition: opacity 1.2s ease;
+    }
+
+    body.entered .emoji-grp {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .page-title {
+      position: fixed;
+      top: 50%;
+      left: 8vw;
+      transform: translateY(-50%);
+      height: auto;
+      text-align: center;
+      z-index: 10000;
+      transition: opacity 1.2s ease;
+      width: 40vw;
+    }
+
+    body.entered .page-title {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .title {
+      position: absolute;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 7vw;
+      text-align: center;
+      z-index: 10000;
+      transition: top 1.8s ease;
+      width: 35vw;
+      border-radius: 2vw;
+      border: 0.3vw solid #966dff;
+      background-color: white;
+    }
+
+    body.entered .title {
+      top: 4%;
+    }
+
+    .title span {
+      font-size: 5vw !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #966dff !important;
+      text-shadow: 0vw 0.3vw 0.1vw rgba(0, 0, 0, 0.453) !important;
+    }
+
+    body[data-lang="hi"] .title span {
+      font-size: 4vw !important;
+    }
+
+    body[data-lang="gu"] .title span {
+      font-size: 4vw !important;
+    }
+
+    .page-title span,
+    .title span {
+      font-size: 10vw;
+      text-align: start;
+      color: #ffffff;
+      font-family: "RenchersRegular";
+      display: flex;
+      align-items: center;
+      text-shadow: 0.3vw 0.3vw 0.1vw rgba(0, 0, 0, 0.453);
+      font-weight: bolder !important;
+      line-height: 1.3;
+    }
+
+    main .enter-btn {
+      position: absolute;
+      top: 85%;
+      left: 8vw;
+      padding: 0.2vw 3vw;
+      background: linear-gradient(to bottom, #c0a9ff 0%, #8d59ff 100%);
+      transform: translateY(-50%);
+      border: 0.3vw solid #d3b1ff;
+      border-radius: 10vw;
+      color: white;
+      font-family: "BalooRegular";
+      font-size: 1.7vw;
+      cursor: pointer;
+      opacity: 1;
+      z-index: 9999;
+      transition:
+        opacity 1.2s ease,
+        background 0.3s ease-in,
+        color 0.3s ease-in;
+    }
+
+    body.entered main .enter-btn {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    main .enter-btn:hover {
+      background: linear-gradient(to bottom, #ffffff 0%, #d3b1ff 100%);
+      color: #4f4f4f;
+    }
+
+    .left {
+      position: absolute;
+      right: 0%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 60vw;
+      height: 45vw;
+      transition:
+        right 2.4s ease,
+        top 2.4s ease,
+        transform 2.4s ease;
+    }
+
+    body.entered .left {
+      right: 55%;
+      top: 50%;
+      transform: translate(50%, -50%);
+      z-index: 99999;
+    }
+
+    .gif {
+      width: 25vw;
+      height: auto;
+      z-index: 99999;
+      position: absolute;
+      left: 60%;
+      top: 50%;
+      right: auto;
+      transform: translate(-50%, -50%);
+      transition: none;
+    }
+
+    .shadow {
+      position: absolute;
+      width: 6vw;
+      height: auto;
+      transition:
+        left 2.4s ease,
+        right 2.4s ease,
+        top 2.4s ease,
+        transform 2.4s ease,
+        opacity 1.2s ease;
+    }
+
+    .shadow-1 {
+      left: 57%;
+      top: 92.5%;
+      transform: translate(-50%, -50%);
+    }
+
+    .shadow-2 {
+      left: 65%;
+      top: 94.5%;
+      transform: translate(-50%, -50%);
+    }
+
+    body.entered .shadow-1 {
+      left: 57%;
+      top: 92.5%;
+      transform: translate(-50%, -50%);
+    }
+
+    body.entered .shadow-2 {
+      left: 65%;
+      top: 94.5%;
+      transform: translate(-50%, -50%);
+    }
+
+    .left-topic {
+      left: -30%;
+    }
+
+    .right-topic {
+      right: -30%;
+    }
+
+    .left-topic,
+    .right-topic {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 9999;
+      transition:
+        left 1.8s ease,
+        right 1.8s ease;
+    }
+
+    body.entered .left-topic {
+      left: -3%;
+    }
+
+    body.entered .right-topic {
+      right: -3%;
+    }
+
+    .topic {
+      position: relative;
+      width: 25vw;
+      height: 6.5vw;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.3vw 4vw;
+      cursor: pointer;
+      border: 0.25vw solid #966dff;
+      box-sizing: border-box;
+      text-decoration: none;
+      text-align: center;
+      transition:
+        transform 0.5s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+    }
+
+    .left-topic .topic:hover {
+      transform: translateX(2vw);
+    }
+
+    .right-topic .topic:hover {
+      transform: translateX(-2vw);
+    }
+
+    .left-topic .topic {
+      padding-right: 3vw;
+    }
+
+    .right-topic .topic {
+      padding-left: 3vw;
+    }
+
+    .topic:active,
+    .topic.active {
+      background-color: #966dff !important;
+      border-color: #ffffff !important;
+    }
+
+    .topic:active span,
+    .topic.active span {
+      color: #ffffff !important;
+    }
+
+    .topic span {
+      color: #966dff;
+      font-family: "MochiyPopOneRegular";
+      word-break: normal;
+      font-size: 1.3vw;
+      line-height: 1.3;
+      pointer-events: none;
+    }
+
+    body[data-lang="hi"] .topic span {
+      font-weight: bolder !important;
+      font-size: 1.5vw !important;
+    }
+
+    body[data-lang="gu"] .topic span {
+      font-weight: bolder !important;
+      line-height: 1;
+    }
+
+    .topic img {
+      position: absolute;
+      right: -4vw;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8vw;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .right-topic .topic img {
+      left: -4vw !important;
+    }
+  </style>
+
+  <body>
+    <a class="home-button home-btn" href="index.html">
+      <img src="./assets/images/home-btn.png" alt="" />
+    </a>
+
+    <div class="page-title">
+      <span data-lang-key="title"></span>
+    </div>
+
+    <div class="title">
+      <span data-lang-key="title"></span>
+    </div>
+
+    <div class="language-container">
+      <div class="english active">E</div>
+      <div class="hindi">H</div>
+      <div class="gujrati">G</div>
+    </div>
+
+    <main>
+      <img class="ring ring1" src="./assets/images/ring-1.png" alt="" />
+
+      <div class="left">
+        <img class="emoji-grp" src="./assets/images/emoji-grp.png" alt="" />
+        <img class="gif" src="./assets/videos/bg character02.gif" alt="" />
+
+        <img
+          class="shadow shadow-1"
+          src="./assets/images/char-shadow.png"
+          alt=""
+        />
+
+        <img
+          class="shadow shadow-2"
+          src="./assets/images/char-shadow.png"
+          alt=""
+        />
+      </div>
+
+      <button class="enter-btn" data-lang-key="enter"></button>
+
+      <div class="left-topic">
+        <a class="topic" href="topic-1.html">
+          <span data-lang-key="title-1"></span>
+          <img src="./assets/images/left-side-hand.png" alt="" />
+        </a>
+
+        <a class="topic" href="topic-2.html">
+          <span data-lang-key="title-2"></span>
+          <img src="./assets/images/left-side-hand.png" alt="" />
+        </a>
+
+        <a class="topic" href="topic-3.html">
+          <span data-lang-key="title-3"></span>
+          <img src="./assets/images/left-side-hand.png" alt="" />
+        </a>
+      </div>
+
+      <div class="right-topic">
+        <a class="topic" href="topic-4.html">
+          <span data-lang-key="title-4"></span>
+          <img src="./assets/images/right-side-hand.png" alt="" />
+        </a>
+
+        <a class="topic" href="topic-5.html">
+          <span data-lang-key="title-5"></span>
+          <img src="./assets/images/right-side-hand.png" alt="" />
+        </a>
+
+        <a class="topic" href="topic-6.html">
+          <span data-lang-key="title-6"></span>
+          <img src="./assets/images/right-side-hand.png" alt="" />
+        </a>
+      </div>
+    </main>
+
+    <script src="./assets/js/app.js"></script>
+
+    <script>
+      const enterBtn = document.querySelector(".enter-btn");
+      const ringImg = document.querySelector(".ring1");
+      const topics = document.querySelectorAll(".topic");
+      const homeBtn = document.querySelector(".home-btn");
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const isEntered = sessionStorage.getItem("pageEntered");
+
+        if (isEntered === "true") {
+          document.body.classList.add("no-transition");
+          document.body.classList.add("entered");
+
+          if (ringImg) {
+            ringImg.src = "./assets/images/ring-2.png";
+          }
+
+          requestAnimationFrame(() => {
+            document.body.classList.remove("no-transition");
+          });
+        }
+      });
+
+      enterBtn.addEventListener("click", () => {
+        document.body.classList.add("entered");
+        sessionStorage.setItem("pageEntered", "true");
+
+        if (ringImg) {
+          ringImg.src = "./assets/images/ring-2.png";
+        }
+      });
+
+      topics.forEach((topic) => {
+        topic.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          topics.forEach((item) => item.classList.remove("active"));
+          topic.classList.add("active");
+
+          setTimeout(() => {
+            window.location.href = topic.href;
+          }, 250);
+        });
+      });
+
+      homeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        sessionStorage.removeItem("pageEntered");
+        document.body.classList.add("no-transition");
+
+        window.location.href = homeBtn.href;
+      });
+    </script>
+  </body>
+</html>
