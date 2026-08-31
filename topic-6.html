@@ -9,7 +9,7 @@
     <!-- Swiper CSS -->
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      href="./assets/css/swiper-bundle.min.css"
     />
 
     <!-- Separate Swiper Custom CSS -->
@@ -20,11 +20,13 @@
     body[data-lang="hi"] .title span {
       font-size: 2vw !important;
       font-weight: bolder !important;
+      font-family: "ITFDevanagari" !important;
     }
 
     body[data-lang="gu"] .title span {
       font-size: 2vw !important;
       font-weight: bolder !important;
+      font-family: "NotoSansGujaratiRegular" !important;
     }
 
     .title {
@@ -87,6 +89,11 @@
   <body>
     <a class="home-button home-btn" href="index.html">
       <img src="./assets/images/home-btn.png" alt="" />
+    </a>
+
+    <a href="pranam.html" class="pranam-link hidden">
+      <img src="./assets/images/arowAsset.png" alt="" />
+      <span data-lang-key="pranam"></span>
     </a>
 
     <div class="title">
@@ -203,7 +210,8 @@
     </div>
 
     <script src="./assets/js/app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./assets/js/djp.js"></script>
+    <script src="./assets/js/swiper-bundle.min.js"></script>
 
     <script>
       const slideTextKeys = [
@@ -221,6 +229,7 @@
       const prevBtnImg = document.querySelector(".swiper-prev-btn img");
       const nextBtnImg = document.querySelector(".swiper-next-btn img");
       const textSpan = document.querySelector(".content-container span");
+      const pranamLink = document.querySelector(".pranam-link");
 
       // NO navigation linked to Swiper — we control it fully manually
       const videoSwiper = new Swiper(".video-swiper", {
@@ -261,8 +270,17 @@
           prevBtn.style.pointerEvents = "auto";
         }
 
-        nextBtn.style.opacity = "1";
-        nextBtn.style.pointerEvents = "auto";
+        const lastIndex = slideTextKeys.length - 1;
+
+        if (swiper.activeIndex === lastIndex) {
+          nextBtn.style.opacity = "0";
+          nextBtn.style.pointerEvents = "none";
+          if (pranamLink) pranamLink.classList.remove("hidden");
+        } else {
+          nextBtn.style.opacity = "1";
+          nextBtn.style.pointerEvents = "auto";
+          if (pranamLink) pranamLink.classList.add("hidden");
+        }
       }
 
       function updateContentKey(index) {

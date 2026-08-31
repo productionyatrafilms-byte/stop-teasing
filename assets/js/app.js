@@ -73,16 +73,72 @@ window.addEventListener("DOMContentLoaded", () => {
     .catch((err) => console.error("Error loading translations:", err));
 });
 
+// ── sound effects ────────────────────────────────────────────────────────
+const AUDIO_PATH = "./assets/audio/";
+
+const topicClickSound = new Audio(`${AUDIO_PATH}topic.mp3`);
+const swiperClickSound = new Audio(`${AUDIO_PATH}swiper.mp3`);
+const navClickSound = new Audio(`${AUDIO_PATH}click.mp3`);
+const langClickSounds = {
+  English: new Audio(`${AUDIO_PATH}Eng.mpeg`),
+  Hindi: new Audio(`${AUDIO_PATH}Hin.mpeg`),
+  Gujarati: new Audio(`${AUDIO_PATH}Guj.mpeg`),
+};
+
+[
+  topicClickSound,
+  swiperClickSound,
+  navClickSound,
+  ...Object.values(langClickSounds),
+].forEach((audio) => {
+  audio.preload = "auto";
+});
+
+function playSound(audio) {
+  audio.currentTime = 0;
+  audio.play().catch(() => {});
+}
+
+// play a sound, then follow the link once it finishes or this cap is hit
+function navigateWithSound(href, audio, maxWait) {
+  let navigated = false;
+  const go = () => {
+    if (navigated) return;
+    navigated = true;
+    window.location.href = href;
+  };
+
+  audio.currentTime = 0;
+  audio.addEventListener("ended", go, { once: true });
+
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(go);
+  }
+
+  setTimeout(go, maxWait);
+}
+
 // button clicks
 if (btnEn) {
-  btnEn.addEventListener("click", () => applyLanguage("English"));
+  btnEn.addEventListener("click", () => {
+    playSound(langClickSounds.English);
+    applyLanguage("English");
+  });
 }
 if (btnHi) {
-  btnHi.addEventListener("click", () => applyLanguage("Hindi"));
+  btnHi.addEventListener("click", () => {
+    playSound(langClickSounds.Hindi);
+    applyLanguage("Hindi");
+  });
 }
 if (btnGu) {
-  btnGu.addEventListener("click", () => applyLanguage("Gujarati"));
+  btnGu.addEventListener("click", () => {
+    playSound(langClickSounds.Gujarati);
+    applyLanguage("Gujarati");
+  });
 }
+
 (() => {
   const pages = document.querySelectorAll(".pages .page");
 
@@ -95,7 +151,7 @@ if (btnGu) {
       if (!link) return;
 
       if (this.classList.contains("is-open")) {
-        window.location.href = link.href;
+        navigateWithSound(link.href, topicClickSound, 900);
         return;
       }
 
@@ -107,3 +163,18 @@ if (btnGu) {
     });
   });
 })();
+
+document
+  .querySelectorAll(".swiper-prev-btn, .swiper-next-btn")
+  .forEach((btn) => {
+    btn.addEventListener("click", () => playSound(swiperClickSound));
+  });
+
+document.querySelectorAll(".home-btn, .back-btn, .home-btn-1").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    const href = link.getAttribute("href");
+    if (!href) return;
+    e.preventDefault();
+    navigateWithSound(href, navClickSound, 600);
+  });
+});

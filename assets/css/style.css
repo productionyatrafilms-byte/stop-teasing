@@ -14,6 +14,14 @@
 }
 
 @font-face {
+  font-family: "ITFDevanagari";
+  src: url("../../fonts/ITFDevanagari-Bold-02.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "NotoSansGujaratiBold";
   src: url("../../fonts/NotoSansGujarati-Bold.ttf") format("truetype");
   font-weight: 700;
@@ -64,7 +72,29 @@ body {
   padding: 1.5vw;
 }
 
+body[data-lang="hi"] {
+  font-family: "ITFDevanagari" !important;
+}
 
+body[data-lang="gu"] {
+  font-family: "NotoSansGujaratiRegular" !important;
+}
+
+body[data-lang="hi"] .pages .page a,
+body[data-lang="hi"] .pages .page div,
+body[data-lang="hi"] .content-container span,
+body[data-lang="hi"] .pranam-img span,
+body[data-lang="hi"] .home-btn-1 span {
+  font-family: "ITFDevanagari" !important;
+}
+
+body[data-lang="gu"] .pages .page a,
+body[data-lang="gu"] .pages .page div,
+body[data-lang="gu"] .content-container span,
+body[data-lang="gu"] .pranam-img span,
+body[data-lang="gu"] .home-btn-1 span {
+  font-family: "NotoSansGujaratiRegular" !important;
+}
 
 .home-btn {
   position: fixed;
@@ -402,12 +432,158 @@ body[data-lang="gu"] .content-container {
 .pranam-img span {
   z-index: 15;
   position: absolute;
-  top: 17%;
+  top: 0%;
   left: 50%;
   font-size: 3.4vw;
   transform: translateX(-50%);
   font-family: "BalooRegular";
   color: #802922;
+}
+
+.pranam-video {
+  position: absolute;
+    left: 50%;
+    top: 49%;
+    transform: translate(-50%, -50%);
+    width: 28vw;
+    height: 28vw;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f6f6f6;
+    background-image: url(../images/pranam-bg-1.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 5;
+}
+
+.pranam-video video {
+  width: 90%;
+  height: 83%;
+  object-fit: cover;
+
+  -webkit-mask-image:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.8) 2%,
+      rgba(0, 0, 0, 0.95) 4%,
+      black 6%,
+      black 90%,
+      rgba(0, 0, 0, 0.95) 96%,
+      rgba(0, 0, 0, 0.8) 98%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.8) 2%,
+      rgba(0, 0, 0, 0.95) 4%,
+      black 6%,
+      black 90%,
+      rgba(0, 0, 0, 0.95) 96%,
+      rgba(0, 0, 0, 0.8) 98%,
+      transparent 100%
+    );
+  -webkit-mask-composite: source-in;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.8) 2%,
+      rgba(0, 0, 0, 0.95) 4%,
+      black 6%,
+      black 90%,
+      rgba(0, 0, 0, 0.95) 96%,
+      rgba(0, 0, 0, 0.8) 98%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.8) 2%,
+      rgba(0, 0, 0, 0.95) 4%,
+      black 6%,
+      black 90%,
+      rgba(0, 0, 0, 0.95) 96%,
+      rgba(0, 0, 0, 0.8) 98%,
+      transparent 100%
+    );
+  mask-composite: intersect;
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.pranam-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 5vw;
+  bottom: 1vw;
+  width: 10vw;
+  height: auto;
+  text-decoration: none;
+  animation: pranamPop 1.2s ease-in-out infinite;
+  transform-origin: center;
+  position: fixed !important;
+  z-index: 99999 !important;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.pranam-link.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pranam-link img {
+  position: relative;
+  width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.pranam-link img,
+.pranam-link span {
+  pointer-events: none;
+}
+
+.pranam-link span {
+  position: absolute;
+  text-decoration: none;
+  color: white;
+  font-family: "BalooRegular", sans-serif;
+  font-weight: bold;
+  font-size: 1.5vw;
+  padding-right: 2vw;
+}
+
+body[data-lang="hi"] .pranam-link span {
+  font-family: "ITFDevanagari" !important;
+  font-weight: 700 !important;
+}
+
+body[data-lang="gu"] .pranam-link span {
+  font-family: "NotoSansGujaratiRegular" !important;
+}
+
+@keyframes pranamPop {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
 }
 
 .pranam-container .home-btn-1 {

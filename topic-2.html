@@ -9,7 +9,7 @@
     <!-- Swiper CSS -->
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      href="./assets/css/swiper-bundle.min.css"
     />
 
     <!-- Separate Swiper Custom CSS -->
@@ -18,7 +18,7 @@
     <!-- Font Awesome For Video Popup Icons -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      href="./fontawesome/css/all.min.css"
     />
   </head>
 
@@ -26,11 +26,13 @@
     body[data-lang="hi"] .title span {
       font-size: 2vw !important;
       font-weight: bolder !important;
+      font-family: "ITFDevanagari" !important;
     }
 
     body[data-lang="gu"] .title span {
       font-size: 2vw !important;
       font-weight: bolder !important;
+      font-family: "NotoSansGujaratiRegular" !important;
     }
     .title {
       position: absolute;
@@ -109,6 +111,15 @@
       transform: translateY(-50%);
       left: 5%;
       z-index: 1000;
+      transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+    }
+
+    .video-btn.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .start-video-btn {
@@ -714,9 +725,10 @@
     </div>
 
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/djp.js"></script>
 
     <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./assets/js/swiper-bundle.min.js"></script>
 
     <script>
       const slideTextKeys = [
@@ -786,6 +798,11 @@
         } else {
           nextBtn.style.opacity = "1";
           nextBtn.style.pointerEvents = "auto";
+        }
+
+        const videoBtn = document.querySelector(".video-btn");
+        if (videoBtn) {
+          videoBtn.classList.toggle("hidden", swiper.activeIndex !== 0);
         }
       }
 

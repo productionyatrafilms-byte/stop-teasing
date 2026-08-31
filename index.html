@@ -117,10 +117,12 @@
 
     body[data-lang="hi"] .title span {
       font-size: 4vw !important;
+      font-family: "ITFDevanagari" !important;
     }
 
     body[data-lang="gu"] .title span {
       font-size: 4vw !important;
+      font-family: "NotoSansGujaratiRegular" !important;
     }
 
     .page-title span,
@@ -326,11 +328,13 @@
     body[data-lang="hi"] .topic span {
       font-weight: bolder !important;
       font-size: 1.5vw !important;
+      font-family: "ITFDevanagari" !important;
     }
 
     body[data-lang="gu"] .topic span {
       font-weight: bolder !important;
       line-height: 1;
+      font-family: "NotoSansGujaratiRegular" !important;
     }
 
     .topic img {
@@ -427,12 +431,15 @@
     </main>
 
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/djp.js"></script>
 
     <script>
       const enterBtn = document.querySelector(".enter-btn");
       const ringImg = document.querySelector(".ring1");
       const topics = document.querySelectorAll(".topic");
       const homeBtn = document.querySelector(".home-btn");
+      const transitionSound = new Audio("./assets/audio/transition.mp3");
+      transitionSound.preload = "auto";
 
       window.addEventListener("DOMContentLoaded", () => {
         const isEntered = sessionStorage.getItem("pageEntered");
@@ -452,6 +459,13 @@
       });
 
       enterBtn.addEventListener("click", () => {
+        if (typeof playSound === "function") {
+          playSound(transitionSound);
+        } else {
+          transitionSound.currentTime = 0;
+          transitionSound.play().catch(() => {});
+        }
+
         document.body.classList.add("entered");
         sessionStorage.setItem("pageEntered", "true");
 
@@ -467,9 +481,11 @@
           topics.forEach((item) => item.classList.remove("active"));
           topic.classList.add("active");
 
-          setTimeout(() => {
+          if (typeof navigateWithSound === "function" && typeof topicClickSound !== "undefined") {
+            navigateWithSound(topic.href, topicClickSound, 500);
+          } else {
             window.location.href = topic.href;
-          }, 250);
+          }
         });
       });
 
