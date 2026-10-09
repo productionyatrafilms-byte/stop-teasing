@@ -44,6 +44,13 @@
       background-color: white;
     }
 
+    /* Room around Hindi / Gujarati titles so the text does not touch the box. */
+    body[data-lang="hi"] .title,
+    body[data-lang="gu"] .title {
+      padding: 0.7vw 1.6vw;
+    }
+
+
     .title span {
       color: #ffffff;
       font-family: "MochiyPopOneRegular";
@@ -52,7 +59,6 @@
       font-size: 2vw !important;
       justify-content: center;
       color: #966dff !important;
-      text-shadow: 0vw 0.2vw 0.1vw rgba(0, 0, 0, 0.453) !important;
       line-height: 1.2;
     }
 

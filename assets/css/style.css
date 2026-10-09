@@ -306,10 +306,13 @@ body[data-lang="gu"] .pages .page div {
 /* Content Container */
 .content-container {
   margin-top: 2vw;
-  height: 6.5vw;
+  /* min-height (not a fixed height) so a long sentence grows the box
+     instead of running out of it. */
+  min-height: 6.5vw;
+  height: auto;
   min-width: 28vw !important;
   max-width: 55vw !important;
-  padding: 0 2vw;
+  padding: 1vw 2vw;
   border-radius: 2.8vw;
   border: 0.3vw solid #ffffff;
   background: linear-gradient(180deg, #a87bff 0%, #8758f6 100%);
@@ -320,16 +323,18 @@ body[data-lang="gu"] .pages .page div {
     0 0.35vw 0.1vw rgba(0, 0, 0, 0.25),
     inset 0 0.18vw 0.25vw rgba(255, 255, 255, 0.28);
   transition: width 0.35s ease;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .content-container span {
+  max-width: 100%;
+  overflow-wrap: break-word;
   font-family: "MochiyPopOneRegular";
   font-size: 1.7vw;
   color: #ffffff;
   text-align: center;
   line-height: 1.25;
-  white-space: wrap;
+  white-space: normal;
   text-shadow: 0 0.18vw 0.15vw rgba(0, 0, 0, 0.3);
   opacity: 1;
   transition: opacity 0.35s ease;
@@ -395,7 +400,7 @@ body[data-lang="gu"] .content-container span {
 
 body[data-lang="hi"] .content-container,
 body[data-lang="gu"] .content-container {
-  height: 6.8vw;
+  min-height: 6.8vw;
 }
 
 /* Hide Default Swiper Buttons */
