@@ -153,28 +153,28 @@
               <div class="swiper-wrapper">
                 <!-- Video Slide 1 -->
                 <div class="swiper-slide">
-                  <video class="swiper-video" autoplay muted loop playsinline>
+                  <video class="swiper-video" preload="auto" autoplay muted loop playsinline>
                     <source src="./assets/videos/5-1.mp4" type="video/mp4" />
                   </video>
                 </div>
 
                 <!-- Video Slide 2 -->
                 <div class="swiper-slide">
-                  <video class="swiper-video" autoplay muted loop playsinline>
+                  <video class="swiper-video" preload="none" muted loop playsinline>
                     <source src="./assets/videos/5-2.mp4" type="video/mp4" />
                   </video>
                 </div>
 
                 <!-- Video Slide 3 -->
                 <div class="swiper-slide">
-                  <video class="swiper-video" autoplay muted loop playsinline>
+                  <video class="swiper-video" preload="none" muted loop playsinline>
                     <source src="./assets/videos/5-3.mp4" type="video/mp4" />
                   </video>
                 </div>
 
                 <!-- Video Slide 4 -->
                 <div class="swiper-slide">
-                  <video class="swiper-video" autoplay muted loop playsinline>
+                  <video class="swiper-video" preload="none" muted loop playsinline>
                     <source src="./assets/videos/5-4.mp4" type="video/mp4" />
                   </video>
                 </div>
@@ -204,7 +204,6 @@
 
     <script src="./assets/js/data.js"></script>
 <script src="./assets/js/app.js"></script>
-    <script src="./assets/js/djp.js"></script>
 
     <!-- Swiper JS -->
     <script src="./assets/js/swiper-bundle.min.js"></script>
@@ -340,12 +339,15 @@
         videos.forEach((video) => {
           video.pause();
           video.currentTime = 0;
+          // inactive slides must not download until their slide is reached
+          video.preload = "none";
         });
 
         const activeSlide = swiper.slides[swiper.activeIndex];
         const activeVideo = activeSlide.querySelector(".swiper-video");
 
         if (activeVideo) {
+          activeVideo.preload = "auto";
           activeVideo.play().catch(() => {});
         }
       }
